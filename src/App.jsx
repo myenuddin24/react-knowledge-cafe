@@ -6,17 +6,31 @@ import Header from './Components/Header/Header'
 
 function App() {
   const [bookmarks, setBookmarks] = useState([]);
+  const [readingTime, setReadingTime] = useState(0);
 
   const handleAddToBookmark = blog => {
-    
+    const newBookmarks = [...bookmarks, blog];
+    setBookmarks(newBookmarks);
   }
- 
+
+  const handleMarkAsRead = time => {
+    setReadingTime(readingTime + time);
+  }
+
   return (
     <>
       <Header></Header>
-      <div className='md:flex mx-12'>
-        <Blogs handleAddToBookmark={handleAddToBookmark}></Blogs>
-        <Bookmarks></Bookmarks>
+      <div className='max-w-7xl mx-auto'>
+        <div className='md:flex gap-6 mx-12'>
+          <Blogs
+            handleAddToBookmark={handleAddToBookmark}
+            handleMarkAsRead={handleMarkAsRead}
+          ></Blogs>
+          <Bookmarks
+            bookmarks={bookmarks}
+            readingTime={readingTime}
+          ></Bookmarks>
+        </div>
       </div>
     </>
   )
